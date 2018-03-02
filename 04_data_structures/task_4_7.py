@@ -10,9 +10,8 @@
 
 MAC = "AAAA:BBBB:CCCC"
 
-MACM = MAC.strip(':')
+MACM = MAC.replace(':','')
 
 print(MACM)
 
-print(bin(int(MACM)))
-
+print(str(bin(int(MACM, 16))).replace('0b',''))
