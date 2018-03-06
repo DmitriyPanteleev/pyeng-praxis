@@ -38,14 +38,11 @@ net = []
 for i in range(4):
 	net.append(int(addr[i]) & mask[i])
 
-# Duplicate net into broad array, gather host bits, and generate broadcast
-broad = list(net)
-brange = 32 - cidr
-for i in range(brange):
-	broad[int(3 - i/8)] = broad[int(3 - i/8)] + (1 << (i % 8))
+# Print information
+print('Network: ')
+print('{:10} {:10} {:10} {:10}'.format(net[0], net[1], net[2], net[3]))
+print('{:010b} {:010b} {:010b} {:010b}'.format(int(net[0]), int(net[1]), int(net[2]), int(net[3])))
 
-# Print information, mapping integer lists to strings for easy printing
-print ("Address:   " , addrString)
-print ("Netmask:   " , ".".join(map(str, mask)))
-print ("Network:   " , ".".join(map(str, net)))
-print ("Broadcast: " , ".".join(map(str, broad)))
+print('Mask: ')
+print('{:10} {:10} {:10} {:10}'.format(mask[0], mask[1], mask[2], mask[3]))
+print('{:010b} {:010b} {:010b} {:010b}'.format(int(mask[0]), int(mask[1]), int(mask[2]), int(mask[3])))
