@@ -22,6 +22,5 @@ IP = '192.168.3.1'
 
 octets = IP.split('.')
 
-print('%-10d' % int(octets[0]) +'%-10d' % int(octets[1]) + '%-10d' % int(octets[2]) +'%-10d' % int(octets[3]))
-
-print(str(bin(int(octets[0]))).replace('0b','') + '  ' + str(bin(int(octets[1]))).replace('0b','') + '  ' + str(bin(int(octets[2]))).replace('0b','') + '  ' + str(bin(int(octets[3]))).replace('0b',''))
+print('{:10} {:10} {:10} {:10}'.format(octets[0], octets[1], octets[2], octets[3]))
+print('{:010b} {:010b} {:010b} {:010b}'.format(int(octets[0]), int(octets[1]), int(octets[2]), int(octets[3])))
