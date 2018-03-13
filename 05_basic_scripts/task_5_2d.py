@@ -43,3 +43,11 @@ london_co = {
         'routing': True
     }
 }
+
+answer1 = input('Enter device name: ')
+answer2 = input('Enter parameter name '+ str(london_co[answer1].keys()).strip('dict_keys') +': ')
+answer2 = answer2.lower()
+if answer2 in london_co[answer1].keys():
+    print(london_co[answer1][answer2])
+else:
+    print('Такого параметра нет')
