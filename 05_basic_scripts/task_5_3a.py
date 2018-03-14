@@ -21,3 +21,23 @@ trunk_template = [
     'switchport trunk encapsulation dot1q', 'switchport mode trunk',
     'switchport trunk allowed vlan {}'
 ]
+# Input values
+IntMode = input('Enter interface mode (access/trunk): ')
+IntNumber = input('Enter interface type and number: ')
+if IntMode == 'access':
+  VlanSet = input('Enter vlan (ex: 10): ')
+else:
+  VlanSet = input('Enter vlans(ex: 2,3,4,5): ')
+
+# Output config
+print('interface ' + IntNumber)
+if IntMode == 'access':
+  print(access_template[0])
+  print(access_template[1].format(VlanSet))
+  print(access_template[2])
+  print(access_template[3])
+  print(access_template[4])
+else:
+  print(trunk_template[0])
+  print(trunk_template[1])
+  print(trunk_template[2].format(VlanSet))
