@@ -14,8 +14,6 @@
 mac = ['aabb:cc80:7000', 'aabb:dd80:7340', 'aabb:ee80:7000', 'aabb:ff80:7000']
 mac_cisco = []
 
-i = 1
-
 for TempMAC in mac:
     mac_cisco.append(TempMAC.replace(':','.'))
 
