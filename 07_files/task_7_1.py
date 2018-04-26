@@ -14,3 +14,20 @@ Outbound Interface:    FastEthernet0/0
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 '''
+
+with open('ospf.txt', 'r') as f:
+    for line in f:
+        spospf_string = line.strip().split()
+        prefix = spospf_string[1]
+        admetric = spospf_string[2]
+        nexthop = spospf_string[4][:-1]
+        lastupdate = spospf_string[5][:-1]
+        outboundint = spospf_string[6]
+        
+        print("Protocol:             OSPF")
+        print("Prefix:               "+prefix)
+        print("AD/Metric:            "+admetric)
+        print("Next-Hop:             "+nexthop)
+        print("Last update:          "+lastupdate)
+        print("Outbound Interface:   "+outboundint)
+        print()

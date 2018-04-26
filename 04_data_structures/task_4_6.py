@@ -20,8 +20,8 @@ spospf_string = ospf_route.strip().split()
 
 prefix = spospf_string[1]
 admetric = spospf_string[2]
-nexthop = spospf_string[4]
-lastupdate = spospf_string[5]
+nexthop = spospf_string[4][:-1]
+lastupdate = spospf_string[5][:-1]
 outboundint = spospf_string[6]
 
 print("Protocol:             OSPF")
