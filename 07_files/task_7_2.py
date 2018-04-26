@@ -12,3 +12,13 @@
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 '''
+
+from sys import argv
+
+filename = str(argv[1:]).strip('[]')[1:-1]
+
+print(filename)
+
+with open(filename, 'r') as f:
+    for line in f:
+        print(line)
