@@ -13,3 +13,17 @@
 '''
 
 ignore = ['duplex', 'alias', 'Current configuration']
+
+from sys import argv
+
+inputfile = str(argv[1:]).strip('[]')[1:-1]
+outfile = 'oufile_task72a.txt'
+print(inputfile)
+print(outfile)
+
+with open(inputfile, 'r') as inf:
+  with open(outfile, 'a') as outf:
+    for line in inf.readlines():
+        if not (set(ignore) & set(line.split())):
+            outf.write(line)
+            print(line, end="")
