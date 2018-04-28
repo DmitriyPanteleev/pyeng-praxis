@@ -27,3 +27,4 @@ with open(inputfile, 'r') as inf:
         if not (set(ignore) & set(line.split())):
             outf.write(line)
             print(line, end="")
+            
