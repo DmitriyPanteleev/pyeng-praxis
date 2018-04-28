@@ -17,3 +17,18 @@
 '''
 
 ignore = ['duplex', 'alias', 'Current configuration']
+
+from sys import argv
+
+inputfile = str(argv[1:2]).strip('[]')[1:-1]
+outfile = str(argv[2:]).strip('[]')[1:-1]
+print(inputfile)
+print(outfile)
+
+with open(inputfile, 'r') as inf:
+  with open(outfile, 'a') as outf:
+    for line in inf.readlines():
+        if not (set(ignore) & set(line.split())):
+            outf.write(line)
+            print(line, end="")
+            
