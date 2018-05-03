@@ -11,3 +11,14 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 '''
+ignore = ['address-table', 'Address', '----', '-------------------------------------------']
+
+inputfile = 'CAM_table.txt'
+vlan = input('Enter VLAN: ')
+
+with open(inputfile, 'r') as inf:
+    for line in sorted(inf.readlines()):
+        if not (set(ignore) & set(line.split())):
+            if line.find(vlan) != -1 :
+                print(line.replace('DYNAMIC     ', ''), end="")
+            

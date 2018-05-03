@@ -18,3 +18,13 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 '''
+
+ignore = ['address-table', 'Address', '----', '-------------------------------------------']
+
+inputfile = 'CAM_table.txt'
+
+with open(inputfile, 'r') as inf:
+    for line in inf.readlines():
+        if not (set(ignore) & set(line.split())):
+            print(line.replace('DYNAMIC     ', ''), end="")
+            
