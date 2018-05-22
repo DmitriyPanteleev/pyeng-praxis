@@ -39,6 +39,7 @@
 
 '''
 
+# Функции и начальные данные
 
 def generate_access_config(access):
     '''
@@ -55,7 +56,17 @@ def generate_access_config(access):
         'switchport nonegotiate', 'spanning-tree portfast',
         'spanning-tree bpduguard enable'
     ]
+    result_list = []
 
+    for key in access.keys():
+        result_list.append('interface {}'.format(key))
+        result_list.append('switchport mode access')
+        result_list.append('switchport access vlan {}'.format(access[key]))
+        result_list.append('switchport nonegotiate')
+        result_list.append('spanning-tree portfast')
+        result_list.append('spanning-tree bpduguard enable')
+
+    return result_list
 
 access_dict = {
     'FastEthernet0/12': 10,
@@ -63,3 +74,10 @@ access_dict = {
     'FastEthernet0/16': 17,
     'FastEthernet0/17': 150
 }
+
+# Основное тело программы
+
+result = generate_access_config(access_dict)
+
+for item in result:
+    print(item)
