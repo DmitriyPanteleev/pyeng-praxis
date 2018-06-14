@@ -24,7 +24,6 @@
 ignore = ['duplex', 'alias', 'Current configuration', 'version', '!']
 RealConfigFile = 'config_sw1.txt'
 print(RealConfigFile)
-print()
 
 def ignore_command(command, ignore):
     '''
@@ -43,22 +42,20 @@ def get_command_map(filename, ignore):
     ResultDict = {}
     with open(filename, 'r') as f:
         Trigger = False
-        ConfigCommand = ''
         ConfigCommandList = []
         for line in f:
+            if line.find(' ') != 0 :
+                Trigger = True
+                ConfigCommand = line.strip('\n')
+                ConfigCommandList = []
+                continue
             if line.find('!') != -1 :
                 if Trigger:
                     ResultDict.update({ConfigCommand:ConfigCommandList})
                     ConfigCommandList = []
                 Trigger = False
                 continue
-            if line.find(' ') != 0 and line.find('!') != 0 :
-                Trigger = True
-                ConfigCommand = line.strip('\n')
-                ConfigCommandList = []
-                continue
-            if line.find(' ') == 0 :
-                ConfigCommandList.append(line.strip('\n'))
+            ConfigCommandList.append(line.strip('\n'))
     return ResultDict
 
 # Основная программа
