@@ -27,3 +27,32 @@ R6           Fa 0/2          143           R S I           2811       Fa 0/0
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 '''
+
+# parcing CDP function
+def parse_cdp_neighbors(filename):
+    with open(filename, 'r') as f:
+        tableTrigger = False
+        resultDict = {}
+        for line in f:
+            if line.find('show cdp neighbors') != -1:
+                # get name current device
+                curDevice = line[:(line.find('show cdp neighbors'))-1]
+                continue
+            if line.find('Device ID') != -1:
+                # found table
+                tableTrigger = True
+                continue
+            if tableTrigger:
+                # parcing string and creating element of result table
+                destDevice = line[:line.find(' ')]
+                curInterf = line[line.find('Eth'):(line.find('Eth') + 7)]
+                destInterf = line[line.rfind('Eth'):(line.rfind('Eth') + 7)]
+                resultDict.update({(curDevice, curInterf):(destDevice, destInterf)})
+                continue
+    return resultDict
+
+# Main programm
+
+if __name__ == '__main__':
+
+    print(parse_cdp_neighbors('sw1_sh_cdp_neighbors.txt'))
