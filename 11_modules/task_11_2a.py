@@ -32,3 +32,14 @@
 > pip install graphviz
 
 '''
+import task_11_1 as parser
+import draw_network_graph as drawMap
+
+connectDict = {}
+listCDPoutPut = ['sh_cdp_n_sw1.txt','sh_cdp_n_r1.txt','sh_cdp_n_r2.txt','sh_cdp_n_r3.txt']
+
+for filename in listCDPoutPut:
+    connectDict.update(parser.parse_cdp_neighbors(filename))
+
+drawMap.draw_topology(connectDict,'newMap2a')
+
