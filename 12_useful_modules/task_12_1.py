@@ -17,28 +17,28 @@
 
 import subprocess
 
-def ping_ip(ip_address):
-    """
-    Ping IP address and return tuple:
-    On success:
-        * True
-        * command output (stdout)
-    On failure:
-        * False
-        * error output (stderr)
-    """
-    reply = subprocess.run(['ping -c 3 -n ' + ip_address],
-                           shell = True
+def ping_ip(ip_address = '127.0.0.1', count = 3):
+    reply = subprocess.run('ping -c {count} -n {ip}'.format(count=count, ip=ip_address),
+                           shell = True,
                            stdout = subprocess.PIPE,
                            stderr = subprocess.PIPE,
                            encoding = 'utf-8')
     if reply.returncode == 0:
         return True, reply.stdout
     else:
-        return False, reply.stderr
+        return False, reply.stdout + reply.stderr
 
-date = subprocess.run(['date'],
-                      shell = True
+curDate = subprocess.run('date',
+                      shell = True,
                       stdout = subprocess.PIPE,
                       stderr = subprocess.PIPE,
                       encoding = 'utf-8')
+
+with open('check_ip_list', r) as chkList, \
+     open('{date}_avlb_ip'.format(date=curDate.stdout), w) as avIP, \
+     open('{date}_unlb_ip'.format(date=curDate.stdout), w) as unIP:
+     for ip in chkList:
+         answer = ping_ip(ip)
+         if answer[0]: avIP.write(ip)
+         else: unIP.write(ip)
+            
