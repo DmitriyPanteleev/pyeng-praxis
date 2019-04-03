@@ -29,6 +29,10 @@ with open('{}_avlb_ip'.format(str(date.today())), 'r') as avIP, \
      
      listAvIP = avIP.readlines()
      listUnIP = unIP.readlines()
-     mergedList = list(zip(listAvIP,listAvIP))
+     for i in range(0,max(len(listAvIP),len(listUnIP))) :
+         if i > len(listAvIP) : listAvIP.append(' ')
+         if i > len(listUnIP) : listUnIP.append(' ')
+
+     mergedList = list(zip(listAvIP,listUnIP))
      
      print(tabulate(mergedList, headers=['Reachable','Unreachable']))
