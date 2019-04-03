@@ -48,14 +48,17 @@ with open('check_ip_list', 'r') as chkList, \
      
     for ipStr in chkList:
         if ipStr.find('-') != -1 :
-            ipbeg = ipStr[:(ipStr.find('-'))-1]
+            ipbeg = ipStr[:(ipStr.find('-'))]
             ipend = ipStr[(ipStr.find('-'))+1:]
             iprange = iter_iprange(ipbeg, ipend, step=1)
             for ip in iprange:
-                answer = ping_ip(ip)
-                if answer[0]: avIP.write(ip)
-                else: unIP.write(ip)
+                answer = ping_ip(str(ip))
+                if answer[0]: avIP.write(str(ip)+'\n')
+                else: unIP.write(str(ip)+'\n')
+            continue
+        ip = ipStr
         answer = ping_ip(ip)
         if answer[0]: avIP.write(ip)
         else: unIP.write(ip)
+        continue
             
