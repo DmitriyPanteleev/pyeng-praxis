@@ -2,7 +2,6 @@
 '''
 Задание 12.3
 
-
 Создать функцию ip_table, которая отображает таблицу доступных и недоступных IP-адресов.
 
 Функция ожидает как аргументы два списка:
@@ -21,3 +20,15 @@ Reachable    Unreachable
 То есть, до выполнения функции и после списки должны выглядеть одинаково.
 
 '''
+from tabulate import tabulate
+from datetime import date
+
+# Genarating List of IPs
+with open('{}_avlb_ip'.format(str(date.today())), 'r') as avIP, \
+     open('{}_unlb_ip'.format(str(date.today())), 'r') as unIP:
+     
+     listAvIP = avIP.readlines()
+     listUnIP = unIP.readlines()
+     mergedList = list(zip(listAvIP,listAvIP))
+     
+     print(tabulate(mergedList, headers=['Reachable','Unreachable']))
