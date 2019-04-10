@@ -38,3 +38,17 @@ Loopback100                100.0.0.1       YES manual up                    up
 
 
 '''
+
+import re
+from sys import argv
+
+inputFile = str(argv[1:2]).strip('[]')[1:-1]
+srchString = str(argv[2:]).strip('[]')[1:-1]
+csrchString = re.compile(srchString)
+# print(inputFile)
+# print(csrchString)
+
+with open(inputFile, 'r') as inf:
+    for line in inf.readlines():
+        if re.search(csrchString,line):
+            print(line, end="")
