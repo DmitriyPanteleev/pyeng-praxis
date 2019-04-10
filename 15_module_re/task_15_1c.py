@@ -15,4 +15,14 @@
 
 '''
 
-regex = ''
+import re
+from sys import argv
+
+inputFile = str(argv[1:2]).strip('[]')[1:-1]
+regex = '0\/0|0\/3'
+
+with open(inputFile, 'r') as inf:
+    for line in inf.readlines():
+        if re.search(regex,line):
+            print(line, end="")
+
