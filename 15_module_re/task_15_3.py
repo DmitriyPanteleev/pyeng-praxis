@@ -22,3 +22,17 @@
 диапазоны адресов и так далее, так как обрабатывается вывод команды, а не ввод пользователя.
 
 '''
+import re
+
+def parse_cfg(inputFile):
+    matchList = []
+    cregex = re.compile('ip address (\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}) (\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})')
+    with open(inputFile, 'r') as inf:
+        for line in inf.readlines():
+            if re.search(cregex,line):
+                matchList.append((re.search(cregex,line).group(1),re.search(cregex,line).group(2)))
+    return matchList
+
+if __name__ == '__main__':
+    
+    print(parse_cfg('config_r1.txt'))
