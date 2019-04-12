@@ -20,3 +20,22 @@
 диапазоны адресов и так далее, так как обрабатывается вывод команды, а не ввод пользователя.
 
 '''
+
+import re
+from pprint import pprint
+
+def parse_cfg(inputFile):
+    matchDict = {}
+    cregexIntrf = re.compile('interface (\S+)')
+    cregexIP = re.compile('ip address (\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}) (\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})')
+    with open(inputFile, 'r') as inf:
+        for line in inf.readlines():
+            if re.search(cregexIntrf,line):
+                interfName = re.search(cregexIntrf,line).group(1)
+            if re.search(cregexIP,line):
+                matchDict.update({interfName:(re.search(cregexIP,line).group(1),re.search(cregexIP,line).group(2))})
+    return matchDict
+
+if __name__ == '__main__':
+    
+    pprint(parse_cfg('config_r1.txt'))
