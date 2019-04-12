@@ -21,3 +21,19 @@
 Проверить работу функции на примере файла sh_ip_int_br_2.txt.
 
 '''
+
+import re
+from pprint import pprint
+
+def parse_intrf_brf(inputFile):
+    matchList = []
+    cregex = re.compile('(\S+) +((\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})|unassigned).+(up|down).+(up|down)')
+    with open(inputFile, 'r') as inf:
+        for line in inf.readlines():
+            if re.search(cregex,line):
+                matchList.append(re.search(cregex,line).groups())
+    return matchList
+
+if __name__ == '__main__':
+    
+    pprint(parse_intrf_brf('sh_ip_int_br_2.txt'))
