@@ -27,7 +27,7 @@ from pprint import pprint
 
 def parse_intrf_brf(inputFile):
     matchList = []
-    cregex = re.compile('(\S+) +((\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3})|unassigned).+(up|down).+(up|down)')
+    cregex = re.compile('(\S+) +(\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}|unassigned).+(up|down).+(up|down)')
     with open(inputFile, 'r') as inf:
         for line in inf.readlines():
             if re.search(cregex,line):
