@@ -23,3 +23,16 @@
 '''
 
 headers = ['interface', 'address', 'status', 'protocol']
+interfaces = [('FastEthernet0/0', '15.0.15.1', 'up', 'up'),
+              ('FastEthernet0/1', '10.0.12.1', 'up', 'up'),
+              ('FastEthernet0/2', '10.0.13.1', 'up', 'up'),
+              ('FastEthernet0/3', 'unassigned', 'down', 'down'),
+              ('Loopback0', '10.1.1.1', 'up', 'up'),
+              ('Loopback100', '100.0.0.1', 'up', 'up')]
+result_list = []
+
+for interface in interfaces:
+    elem_dic = dict(zip(headers,list(interface)))
+    relult_list = result_list.append(elem_dic)
+
+print(result_list)
