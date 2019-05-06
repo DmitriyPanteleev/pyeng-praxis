@@ -44,8 +44,25 @@
 '''
 
 import glob
+import re
 
 sh_version_files = glob.glob('sh_vers*')
-#print(sh_version_files)
-
 headers = ['hostname', 'ios', 'image', 'uptime']
+
+def parse_sh_version(inputFile):
+    version_regex = re.compile('Version (.+),')
+    image_regex = re.compile('image file is "(.+)"')
+    uptime_regex = re.compile('uptime is (.+ minutes)')
+
+    with open(inputFile, 'r') as inf:
+        for line in inf.readlines():
+            if re.search(version_regex,line):
+                version_result = re.search(version_regex,line).groups()[0]
+            if re.search(image_regex,line):
+                image_result = re.search(image_regex,line).groups()[0]
+            if re.search(uptime_regex,line):
+                uptime_result = re.search(uptime_regex,line).groups()[0]
+    return (version_result, image_result, uptime_result)
+
+for file_name in sh_version_files:
+    print(parse_sh_version(file_name))
