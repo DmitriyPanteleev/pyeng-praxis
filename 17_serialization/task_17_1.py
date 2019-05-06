@@ -45,6 +45,7 @@
 
 import glob
 import re
+import csv
 
 sh_version_files = glob.glob('sh_vers*')
 headers = ['hostname', 'ios', 'image', 'uptime']
@@ -54,6 +55,7 @@ def parse_sh_version(inputFile):
     image_regex = re.compile('image file is "(.+)"')
     uptime_regex = re.compile('uptime is (.+ minutes)')
 
+    router_name = inputFile[-6:-4]
     with open(inputFile, 'r') as inf:
         for line in inf.readlines():
             if re.search(version_regex,line):
@@ -62,7 +64,22 @@ def parse_sh_version(inputFile):
                 image_result = re.search(image_regex,line).groups()[0]
             if re.search(uptime_regex,line):
                 uptime_result = re.search(uptime_regex,line).groups()[0]
-    return (version_result, image_result, uptime_result)
+    
+    return [router_name, version_result, image_result, uptime_result]
 
+def write_to_csv(outputFile = 'routers_inventory.csv', outList = headers):
+    with open(outputFile, 'a') as outf:
+        writer = csv.writer(outf)
+        writer.writerow(outList)
+
+# Main Programm
+
+with open('routers_inventory.csv', 'w') as f:
+    writer = csv.writer(f)
+    writer.writerow(headers)
+    
 for file_name in sh_version_files:
-    print(parse_sh_version(file_name))
+    write_to_csv('routers_inventory.csv',parse_sh_version(file_name))
+
+with open('routers_inventory.csv', 'r') as f:
+    print(f.read())
