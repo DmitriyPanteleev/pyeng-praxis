@@ -51,19 +51,19 @@ sh_version_files = glob.glob('sh_vers*')
 headers = ['hostname', 'ios', 'image', 'uptime']
 
 def parse_sh_version(inputFile):
-    version_regex = re.compile('Version (.+),')
-    image_regex = re.compile('image file is "(.+)"')
-    uptime_regex = re.compile('uptime is (.+ minutes)')
 
     router_name = inputFile[-6:-4]
     with open(inputFile, 'r') as inf:
         for line in inf.readlines():
-            if re.search(version_regex,line):
-                version_result = re.search(version_regex,line).groups()[0]
-            if re.search(image_regex,line):
-                image_result = re.search(image_regex,line).groups()[0]
-            if re.search(uptime_regex,line):
-                uptime_result = re.search(uptime_regex,line).groups()[0]
+            version_regex = re.search(r'Version (.+),',line)
+            image_regex = re.search(r'image file is "(.+)"',line)
+            uptime_regex = re.search(r'uptime is (.+ minutes)',line)
+            if version_regex:
+                version_result = version_regex.groups()[0]
+            if image_regex:
+                image_result = image_regex.groups()[0]
+            if uptime_regex:
+                uptime_result = uptime_regex.groups()[0]
     
     return [router_name, version_result, image_result, uptime_result]
 
