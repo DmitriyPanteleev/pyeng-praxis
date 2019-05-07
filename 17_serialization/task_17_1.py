@@ -55,9 +55,9 @@ def parse_sh_version(inputFile):
     router_name = inputFile[-6:-4]
     with open(inputFile, 'r') as inf:
         for line in inf.readlines():
-            version_regex = re.search(r'Version (.+),',line)
-            image_regex = re.search(r'image file is "(.+)"',line)
-            uptime_regex = re.search(r'uptime is (.+ minutes)',line)
+            version_regex = re.search('Version (.+),',line)
+            image_regex = re.search('image file is "(.+)"',line)
+            uptime_regex = re.search('uptime is (.+ minutes)',line)
             if version_regex:
                 version_result = version_regex.groups()[0]
             if image_regex:
